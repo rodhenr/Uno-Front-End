@@ -1,0 +1,23 @@
+$b1: #8338ec;
+
+.container {
+    align-items: center;
+    background-color: $b1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+    width: 100vw;
+}
+
+.container_middle {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.middle_center {
+    display: flex;
+    gap: 8rem;
+}
