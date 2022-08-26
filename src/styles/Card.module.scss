@@ -1,0 +1,35 @@
+.containerPlayer {
+  border: 1px solid black;
+  bottom: 70px;
+  height: 200px;
+  left: -10px;
+  position: relative;
+  width: 150px;
+}
+
+.containerLeft {
+  border: 1px solid black;
+  height: 150px;
+  left: 20px;
+  position: relative;
+  top: 20px;
+  width: 200px;
+}
+
+.containerRight {
+  border: 1px solid black;
+  height: 150px;
+  left: -70px;
+  position: relative;
+  top: 20px;
+  width: 200px;
+}
+
+.containerTop {
+  border: 1px solid black;
+  height: 200px;
+  left: -10px;
+  position: relative;
+  top: 20px;
+  width: 150px;
+}

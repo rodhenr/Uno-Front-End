@@ -1,7 +1,17 @@
 $b1: #8ecae6;
 
-.container {
+.containerLeft {
   background-color: $b1;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 150px;
+}
+
+.containerRight {
+  background-color: $b1;
+  display: flex;
+  flex-direction: column;
   height: 500px;
   width: 150px;
 }

@@ -8,18 +8,18 @@ function App() {
   return (
     <div className={styles.container}>
       <div>
-        <CardsHorizontal />
+        <CardsHorizontal position={"top"} />
       </div>
       <div className={styles.container_middle}>
-        <CardsVertical />
+        <CardsVertical position="left" />
         <div className={styles.middle_center}>
           <Deck />
           <CardsPlayed />
         </div>
-        <CardsVertical />
+        <CardsVertical position="right" />
       </div>
       <div>
-        <CardsHorizontal />
+        <CardsHorizontal position={"down"} />
       </div>
     </div>
   );
