@@ -2,16 +2,22 @@ $b1: #8ecae6;
 
 .containerLeft {
   background-color: $b1;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 500px;
-  width: 150px;
+  padding: 0.5rem 0;
+  position: relative;
+  width: 100px;
 }
 
 .containerRight {
   background-color: $b1;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 500px;
-  width: 150px;
+  padding: 0.5rem 0;
+  position: relative;
+  width: 100px;
 }

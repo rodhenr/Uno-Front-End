@@ -15,6 +15,7 @@ function App() {
         <div className={styles.middle_center}>
           <Deck />
           <CardsPlayed />
+          <p>PLAY</p>
         </div>
         <CardsVertical position="right" />
       </div>
