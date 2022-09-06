@@ -6,8 +6,8 @@ interface Props {
 }
 
 function CardsHorizontal({ position }: Props) {
-  const cardsPlayer = ["", "", "", "", ""];
-  const cardsTop = ["", "", "", "", ""];
+  const cardsPlayer = ["", "", "", "", "", "", "", "", ""];
+  const cardsTop = ["", "", "", "", "", "", "", "", ""];
 
   return position === "down" ? (
     <div className={styles.containerDown}>

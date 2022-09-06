@@ -1,34 +1,201 @@
+$cards: 10;
+
 .containerPlayer {
+  background-color: blue;
   border: 1px solid black;
-  bottom: 20px;
+  cursor: pointer;
   height: 150px;
-  position: absolute;
   max-width: 100px;
   min-width: 100px;
+  position: absolute;
+
+  @for $i from 0 to $cards {
+    &:nth-child(#{$i}) {
+      @if($i == 1){
+        left: 0;
+        z-index: 1;
+      } @else {
+        z-index: $i * 1;
+        left: ($i - 1 )* (40px - $cards)/1.5;
+      }
+    }
+  }
+
+  &:hover {
+    animation: 0.5s cardHoverPlayer forwards ease-out;
+    z-index: 100;
+  }
+
+  &:not(hover) {
+    animation: 0.2s cardNotHoverPlayer forwards ease-out;
+    z-index: 100;
+  }
 }
 
 .containerLeft {
+  background-color: green;
   border: 1px solid black;
+  cursor: pointer;
   max-height: 100px;
   min-height: 100px;
   position: absolute;
   width: 150px;
 
+  @for $i from 0 to $cards {
+    &:nth-child(#{$i}) {
+      @if($i == 1){
+        top: 0;
+        z-index: 1;
+      } @else {
+        z-index: $i * 1;
+        top: ($i - 1 )* (40px - $cards)/1.5;
+      }
+    }
+  }
+
+  &:hover {
+    animation: 0.5s cardHoverLeft forwards ease-out;
+    z-index: 100;
+  }
+
+  &:not(hover) {
+    animation: 0.2s cardNotHoverLeft forwards ease-out;
+    z-index: 100;
+  }
 }
 
 .containerRight {
+  background-color: yellow;
   border: 1px solid black;
+  cursor: pointer;
   max-height: 100px;
   min-height: 100px;
   position: absolute;
-  right: 50px;
   width: 150px;
+
+  @for $i from 0 to $cards {
+    &:nth-child(#{$i}) {
+      @if($i == 1){
+        top: 0;
+        z-index: 1;
+      } @else {
+        z-index: $i * 1;
+        top: ($i - 1 )* (40px - $cards)/1.5;
+      }
+    }
+  }
+
+  &:hover {
+    animation: 0.5s cardHoverRight forwards ease-out;
+    z-index: 100;
+  }
+
+  &:not(hover) {
+    animation: 0.2s cardNotHoverRight forwards ease-out;
+    z-index: 100;
+  }
 }
 
 .containerTop {
+  background-color: red;
   border: 1px solid black;
+  cursor: pointer;
   height: 150px;
   max-width: 100px;
   min-width: 100px;
   position: absolute;
+
+  @for $i from 1 to $cards {
+    &:nth-child(#{$i}) {
+      @if($i == 1){
+        left: 0;
+        z-index: 1;
+      } @else {
+        z-index: $i * 1;
+        left: ($i - 1) * (40px - $cards)/1.5;
+      }
+    }
+  }
+
+  &:hover {
+    animation: 0.5s cardHoverTop forwards ease-out;
+    z-index: 100;
+  }
+
+  &:not(hover) {
+    animation: 0.2s cardNotHoverTop forwards ease-out;
+    z-index: 100;
+  }
+}
+
+@keyframes cardHoverPlayer {
+  0% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: 15px;
+  }
+}
+
+@keyframes cardNotHoverPlayer {
+  0% {
+    bottom: 15px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
+
+@keyframes cardHoverTop {
+  0% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: -15px;
+  }
+}
+
+@keyframes cardNotHoverTop {
+  0% {
+    bottom: -15px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
+
+@keyframes cardHoverLeft {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: 15px;
+  }
+}
+
+@keyframes cardNotHoverLeft {
+  0% {
+    left: 15px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+@keyframes cardHoverRight {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: 15px;
+  }
+}
+
+@keyframes cardNotHoverRight {
+  0% {
+    right: 15px;
+  }
+  100% {
+    right: 0px;
+  }
 }

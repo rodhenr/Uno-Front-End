@@ -6,7 +6,7 @@ interface Props {
 }
 
 function CardsVertical({ position }: Props) {
-  const cards = ["", "", "", "", ""];
+  const cards = ["", "", "", "", "", "", "", "", ""];
 
   return position === "left" ? (
     <div className={styles.containerLeft}>

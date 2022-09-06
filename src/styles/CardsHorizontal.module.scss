@@ -1,22 +1,22 @@
-$b1: #8ecae6;
+$cards: 10;
 
 .containerDown {
-  background-color: $b1;
+  bottom: 20px;
   box-sizing: border-box;
   display: flex;
   height: 150px;
+  left: calc($cards * -10px);
+  justify-content: center;
   padding: 0 0.5rem;
   position: relative;
-  width: 600px;
 }
 
 .containerTop {
-  background-color: $b1;
+  bottom: -70px;
   box-sizing: border-box;
   display: flex;
   height: 100px;
+  left: calc($cards * -10px);
   padding: 0 0.5rem;
   position: relative;
-  width: 500px;
 }
-

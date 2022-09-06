@@ -1,23 +1,23 @@
-$b1: #8ecae6;
+$cards: 10;
 
 .containerLeft {
-  background-color: $b1;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 500px;
+  left: 20px;
   padding: 0.5rem 0;
   position: relative;
-  width: 100px;
+  top: calc($cards * 6px);
 }
 
 .containerRight {
-  background-color: $b1;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 500px;
+  right: 20px;
   padding: 0.5rem 0;
   position: relative;
-  width: 100px;
+  top: calc($cards * 6px);
 }
