@@ -6,19 +6,41 @@ interface Props {
 }
 
 function CardsHorizontal({ position }: Props) {
-  const cardsPlayer = ["", "", "", "", "", "", "", "", ""];
-  const cardsTop = ["", "", "", "", "", "", "", "", ""];
+  const cardsPlayer = [
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+    "00B",
+  ];
+  const cardsTop = [
+    "back",
+    "back",
+    "back",
+    "back",
+    "back",
+    "back",
+    "back",
+    "back",
+    "back",
+    "back",
+  ];
 
   return position === "down" ? (
     <div className={styles.containerDown}>
       {cardsPlayer.map((i) => {
-        return <Card isPlayer={true} position={"down"} />;
+        return <Card isPlayer={true} position={"down"} cardType={i} />;
       })}
     </div>
   ) : (
     <div className={styles.containerTop}>
       {cardsTop.map((i) => {
-        return <Card isPlayer={false} position={"top"} />;
+        return <Card isPlayer={false} position={"top"} cardType={i} />;
       })}
     </div>
   );

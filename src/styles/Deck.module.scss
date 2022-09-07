@@ -1,5 +1,11 @@
 .container {
-    border: 1px solid black;
+  cursor: pointer;
+  display: flex;
+  height: 150px;
+  justify-content: center;
+  width: 100px;
+
+  img {
     height: 150px;
-    width: 100px;
+  }
 }

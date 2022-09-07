@@ -8,7 +8,7 @@ $cards: 10;
   left: 20px;
   padding: 0.5rem 0;
   position: relative;
-  top: calc($cards * 6px);
+  top: 50px;
 }
 
 .containerRight {
@@ -16,8 +16,8 @@ $cards: 10;
   display: flex;
   flex-direction: column;
   height: 500px;
-  right: 20px;
+  right: 120px;
   padding: 0.5rem 0;
   position: relative;
-  top: calc($cards * 6px);
+  top: 50px;
 }

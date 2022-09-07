@@ -6,18 +6,18 @@ interface Props {
 }
 
 function CardsVertical({ position }: Props) {
-  const cards = ["", "", "", "", "", "", "", "", ""];
+  const cards = ["back", "back", "back", "back", "back", "back", "back", "back", "back", "back"];
 
   return position === "left" ? (
     <div className={styles.containerLeft}>
       {cards.map((i) => {
-        return <Card isPlayer={false} position={"left"} />;
+        return <Card isPlayer={false} position={"left"} cardType={i} />;
       })}
     </div>
   ) : (
     <div className={styles.containerRight}>
       {cards.map((i) => {
-        return <Card isPlayer={false} position={"right"} />;
+        return <Card isPlayer={false} position={"right"} cardType={i}/>;
       })}
     </div>
   );
