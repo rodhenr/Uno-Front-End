@@ -37,7 +37,7 @@ const cardsSlice = createSlice({
   reducers: {
     newSession: (state, action) => {
       state.sessionId = action.payload.sessionId;
-      state.playerId = action.payload.playerId
+      state.playerId = action.payload.playerId;
     },
     startGame: (state, action) => {
       const {
@@ -58,8 +58,25 @@ const cardsSlice = createSlice({
       state.nextPlayer = nextPlayer;
       state.playersCards = playersCards;
     },
+    cpuPlay: (state, action) => {
+      const { lastCard, lastColor, nextPlayer, playersCards } = action.payload;
+
+      state.lastCard = lastCard;
+      state.lastColor = lastColor;
+      state.nextPlayer = nextPlayer;
+      state.playersCards = playersCards;
+    },
+    playerTurn: (state, action) => {
+      const { lastCard, lastColor, nextPlayer, playersCards } = action.payload;
+
+      state.lastCard = lastCard;
+      state.lastColor = lastColor;
+      state.nextPlayer = nextPlayer;
+      state.playersCards = playersCards;
+    },
   },
 });
 
-export const { newSession, startGame } = cardsSlice.actions;
+export const { cpuPlay, newSession, playerTurn, startGame } =
+  cardsSlice.actions;
 export default cardsSlice.reducer;

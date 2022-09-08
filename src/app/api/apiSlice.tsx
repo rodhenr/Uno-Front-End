@@ -25,6 +25,19 @@ interface StartGame {
   playerId: string;
 }
 
+interface Play {
+  lastCard: string;
+  lastColor: string;
+  nextCards: ArrayPlayers[];
+  nextPlayer: string;
+}
+
+interface PlaySettings {
+  card: string;
+  id: string;
+  sessionId: string;
+}
+
 export const cardsApi = createApi({
   reducerPath: "cards",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/api/" }),
@@ -38,12 +51,19 @@ export const cardsApi = createApi({
     }),
     startGame: builder.mutation<StartGame, GetStart>({
       query: ({ playerId, sessionId }) => ({
-        url: `/start`,
+        url: "/start",
         method: "POST",
         body: { playerId, sessionId },
+      }),
+    }),
+    play: builder.mutation<Play, PlaySettings>({
+      query: ({ card, id, sessionId }) => ({
+        url: "/session/play",
+        method: "POST",
+        body: { card, id, sessionId },
       }),
     }),
   }),
 });
 
-export const { useNewGameMutation, useStartGameMutation } = cardsApi;
+export const { useNewGameMutation, usePlayMutation, useStartGameMutation } = cardsApi;
