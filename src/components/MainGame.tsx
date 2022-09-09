@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { cpuPlay, startGame } from "../app/cardsSlice";
 import { RootState } from "../app/store";
-import { usePlayMutation, useStartGameMutation } from "../app/api/apiSlice";
+import {
+  usePlayMutation,
+  useStartGameMutation,
+} from "../app/api/apiSlice";
 import CardsCpuLeft from "./CardsCpuLeft";
 import CardsCpuRight from "./CardsCpuRight";
 import CardsCpuTop from "./CardsCpuTop";
@@ -15,6 +18,7 @@ import { useEffect, useState } from "react";
 //CRIAR WINNER
 //CRIAR TELA RECONEXÃO SESSION ANTERIOR
 //CRIAR SAIR
+//CRIAR PASSAR TURNO SE NÃO TIVER CARTAS NO DECK
 
 function MainGame() {
   const dispatch = useDispatch();
@@ -76,10 +80,12 @@ function MainGame() {
           }).unwrap();
           dispatch(
             cpuPlay({
+              deckEmpty: data.deckEmpty,
               lastCard: data.lastCard,
               lastColor: data.lastColor,
               nextPlayer: data.nextPlayer,
               playersCards: data.nextCards,
+              //winner: data.winner,
             })
           );
         } catch (err) {

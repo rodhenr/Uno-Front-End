@@ -26,6 +26,7 @@ interface StartGame {
 }
 
 interface Play {
+  deckEmpty: boolean;
   lastCard: string;
   lastColor: string;
   nextCards: ArrayPlayers[];
@@ -34,6 +35,11 @@ interface Play {
 
 interface PlaySettings {
   card: string;
+  id: string;
+  sessionId: string;
+}
+
+interface BuyCard {
   id: string;
   sessionId: string;
 }
@@ -63,7 +69,15 @@ export const cardsApi = createApi({
         body: { card, id, sessionId },
       }),
     }),
+    buyCard: builder.mutation<Play, BuyCard>({
+      query: ({ id, sessionId }) => ({
+        url: "/session/buy",
+        method: "POST",
+        body: { id, sessionId },
+      }),
+    }),
   }),
 });
 
-export const { useNewGameMutation, usePlayMutation, useStartGameMutation } = cardsApi;
+export const { useBuyCardMutation, useNewGameMutation, usePlayMutation, useStartGameMutation } =
+  cardsApi;

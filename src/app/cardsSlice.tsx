@@ -9,6 +9,7 @@ interface State {
   cpuTopId: string;
   cpuLeftId: string;
   cpuRightId: string;
+  deckEmpty: boolean;
   lastCard: string;
   lastColor: string;
   nextPlayer: string;
@@ -22,6 +23,7 @@ const initialState: State = {
   cpuTopId: "",
   cpuLeftId: "",
   cpuRightId: "",
+  deckEmpty: false,
   lastCard: "",
   lastColor: "",
   nextPlayer: "",
@@ -59,16 +61,20 @@ const cardsSlice = createSlice({
       state.playersCards = playersCards;
     },
     cpuPlay: (state, action) => {
-      const { lastCard, lastColor, nextPlayer, playersCards } = action.payload;
+      const { deckEmpty, lastCard, lastColor, nextPlayer, playersCards } =
+        action.payload;
 
+      state.deckEmpty = deckEmpty;
       state.lastCard = lastCard;
       state.lastColor = lastColor;
       state.nextPlayer = nextPlayer;
       state.playersCards = playersCards;
     },
     playerTurn: (state, action) => {
-      const { lastCard, lastColor, nextPlayer, playersCards } = action.payload;
+      const { deckEmpty, lastCard, lastColor, nextPlayer, playersCards } =
+        action.payload;
 
+      state.deckEmpty = deckEmpty;
       state.lastCard = lastCard;
       state.lastColor = lastColor;
       state.nextPlayer = nextPlayer;

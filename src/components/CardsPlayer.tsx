@@ -23,6 +23,7 @@ function CardsPlayer() {
       const data = await play({ card, id: selectPlayer, sessionId }).unwrap();
       dispatch(
         playerTurn({
+          deckEmpty: data.deckEmpty,
           lastCard: data.lastCard,
           lastColor: data.lastColor,
           nextPlayer: data.nextPlayer,
