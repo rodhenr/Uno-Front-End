@@ -61,24 +61,38 @@ const cardsSlice = createSlice({
       state.playersCards = playersCards;
     },
     cpuPlay: (state, action) => {
-      const { deckEmpty, lastCard, lastColor, nextPlayer, playersCards } =
-        action.payload;
+      const {
+        deckEmpty,
+        lastCard,
+        lastColor,
+        nextPlayer,
+        playersCards,
+        winner,
+      } = action.payload;
 
       state.deckEmpty = deckEmpty;
       state.lastCard = lastCard;
       state.lastColor = lastColor;
       state.nextPlayer = nextPlayer;
       state.playersCards = playersCards;
+      state.winner = winner;
     },
     playerTurn: (state, action) => {
-      const { deckEmpty, lastCard, lastColor, nextPlayer, playersCards } =
-        action.payload;
+      const {
+        deckEmpty,
+        lastCard,
+        lastColor,
+        nextPlayer,
+        playersCards,
+        winner,
+      } = action.payload;
 
       state.deckEmpty = deckEmpty;
       state.lastCard = lastCard;
       state.lastColor = lastColor;
       state.nextPlayer = nextPlayer;
       state.playersCards = playersCards;
+      state.winner = winner;
     },
   },
 });

@@ -23,6 +23,7 @@ function Deck() {
           lastColor: data.lastColor,
           nextPlayer: data.nextPlayer,
           playersCards: data.nextCards,
+          winner: data.winner,
         })
       );
     } catch (err) {

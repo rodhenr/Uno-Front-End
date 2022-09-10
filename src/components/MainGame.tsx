@@ -1,10 +1,8 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cpuPlay, startGame } from "../app/cardsSlice";
 import { RootState } from "../app/store";
-import {
-  usePlayMutation,
-  useStartGameMutation,
-} from "../app/api/apiSlice";
+import { usePlayMutation, useStartGameMutation } from "../app/api/apiSlice";
 import CardsCpuLeft from "./CardsCpuLeft";
 import CardsCpuRight from "./CardsCpuRight";
 import CardsCpuTop from "./CardsCpuTop";
@@ -12,16 +10,16 @@ import CardsPlayer from "./CardsPlayer";
 import CardsPlayed from "./CardsPlayed";
 import Deck from "./Deck";
 import styles from "../styles/App.module.scss";
-import { useEffect, useState } from "react";
 
-//CRIAR CARTAS FO E CH COLORIDAS
-//CRIAR WINNER
 //CRIAR TELA RECONEXÃO SESSION ANTERIOR
 //CRIAR SAIR
 //CRIAR PASSAR TURNO SE NÃO TIVER CARTAS NO DECK
+//OPÇÃO DE ESCOLHER QUAL COR AO USAR CH
+//PASSAR QUANTIDADE DE CARTAS PARA CSS
 
 function MainGame() {
   const dispatch = useDispatch();
+  const winner = useSelector((state: RootState) => state.cards.winner);
   const playerId = useSelector((state: RootState) => state.cards.playerId);
   const sessionId = useSelector((state: RootState) => state.cards.sessionId);
   const cpuLeftId = useSelector((state: RootState) => state.cards.cpuLeftId);
@@ -71,7 +69,7 @@ function MainGame() {
 
   useEffect(() => {
     const cpuTurn = async () => {
-      if (nextPlayer !== playerId) {
+      if (winner === "" && nextPlayer !== playerId) {
         try {
           const data = await play({
             card: ".",
@@ -85,7 +83,7 @@ function MainGame() {
               lastColor: data.lastColor,
               nextPlayer: data.nextPlayer,
               playersCards: data.nextCards,
-              //winner: data.winner,
+              winner: data.winner,
             })
           );
         } catch (err) {
@@ -97,7 +95,7 @@ function MainGame() {
     cpuTurn();
   }, [nextPlayer]);
 
-  return (
+  return winner === "" ? (
     <div className={styles.container}>
       <div className={styles.maxWidth}>
         <CardsCpuTop />
@@ -120,6 +118,20 @@ function MainGame() {
       <div className={styles.maxWidth}>
         <CardsPlayer />
       </div>
+    </div>
+  ) : (
+    <div className={styles.winner}>
+      <p>
+        {winner === cpuLeftId ? (
+          <p>O vencedor foi o Esquerdo!</p>
+        ) : winner === cpuRightId ? (
+          <p>O vencedor foi o Direito!</p>
+        ) : winner === cpuTopId ? (
+          <p>O vencedor foi o Topo!</p>
+        ) : (
+          <p>O vencedor foi o Player!</p>
+        )}
+      </p>
     </div>
   );
 }

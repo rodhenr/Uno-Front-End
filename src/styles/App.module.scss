@@ -37,7 +37,7 @@ $b1: #8338ec;
     width: 150px;
 
     &:hover {
-        background-color: #fff;
+      background-color: #fff;
     }
   }
 }
@@ -47,10 +47,18 @@ $b1: #8338ec;
   display: flex;
   gap: 1rem;
   justify-content: center;
-
 }
 .maxWidth {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.winner {
+  align-items: center;
+  display: flex;
+  font-size: 2rem;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
 }

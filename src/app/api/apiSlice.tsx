@@ -31,6 +31,7 @@ interface Play {
   lastColor: string;
   nextCards: ArrayPlayers[];
   nextPlayer: string;
+  winner: string;
 }
 
 interface PlaySettings {
@@ -79,5 +80,9 @@ export const cardsApi = createApi({
   }),
 });
 
-export const { useBuyCardMutation, useNewGameMutation, usePlayMutation, useStartGameMutation } =
-  cardsApi;
+export const {
+  useBuyCardMutation,
+  useNewGameMutation,
+  usePlayMutation,
+  useStartGameMutation,
+} = cardsApi;
