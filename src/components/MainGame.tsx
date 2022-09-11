@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cpuPlay, startGame } from "../app/cardsSlice";
+import { cpuPlay, skipPlayer, startGame } from "../app/cardsSlice";
 import { RootState } from "../app/store";
-import { usePlayMutation, useStartGameMutation } from "../app/api/apiSlice";
+import {
+  usePlayMutation,
+  useSkipTurnMutation,
+  useStartGameMutation,
+} from "../app/api/apiSlice";
 import CardsCpuLeft from "./CardsCpuLeft";
 import CardsCpuRight from "./CardsCpuRight";
 import CardsCpuTop from "./CardsCpuTop";
@@ -11,11 +15,13 @@ import CardsPlayed from "./CardsPlayed";
 import Deck from "./Deck";
 import styles from "../styles/App.module.scss";
 
+//SE A PRIMEIRA CARTA FOR DE COR?
+//CARTAS IGUAIS NO BARALHO SÃO RETIRADAS JUNTAS
+//OPÇÃO DE ESCOLHER QUAL COR AO USAR CH
 //CRIAR TELA RECONEXÃO SESSION ANTERIOR
 //CRIAR SAIR
-//CRIAR PASSAR TURNO SE NÃO TIVER CARTAS NO DECK
-//OPÇÃO DE ESCOLHER QUAL COR AO USAR CH
 //PASSAR QUANTIDADE DE CARTAS PARA CSS
+//IDENTIFICAR IMPOSSIBILIADE DE JOGAR NOVAS CARTAS E DECLARAR UM VENCEDOR
 
 function MainGame() {
   const dispatch = useDispatch();
@@ -26,8 +32,10 @@ function MainGame() {
   const cpuTopId = useSelector((state: RootState) => state.cards.cpuTopId);
   const cpuRightId = useSelector((state: RootState) => state.cards.cpuRightId);
   const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
+  const deckEmpty = useSelector((state: RootState) => state.cards.deckEmpty);
   const [startMutation] = useStartGameMutation();
   const [play] = usePlayMutation();
+  const [skip] = useSkipTurnMutation();
   const [next, setNext] = useState("");
 
   const newGameStart = async (e: React.MouseEvent<HTMLElement>) => {
@@ -95,6 +103,17 @@ function MainGame() {
     cpuTurn();
   }, [nextPlayer]);
 
+  const skipTurn = async () => {
+    if (nextPlayer !== playerId || deckEmpty === false) return;
+
+    try {
+      const data = await skip({ id: playerId, sessionId }).unwrap();
+      dispatch(skipPlayer({ nextPlayer: data.nextPlayer }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return winner === "" ? (
     <div className={styles.container}>
       <div className={styles.maxWidth}>
@@ -108,9 +127,14 @@ function MainGame() {
             <CardsPlayed />
           </div>
           {nextPlayer === "" ? (
-            <button onClick={(e) => newGameStart(e)}>PLAY</button>
+            <div className={styles.middle_single_option}>
+              <button onClick={(e) => newGameStart(e)}>PLAY</button>
+            </div>
           ) : (
-            <p>Próximo: {next}</p>
+            <div className={styles.middle_options}>
+              <p>Turno: {next}</p>
+              <button onClick={() => skipTurn()} disabled={!deckEmpty}>Passar Turno</button>
+            </div>
           )}
         </div>
         <CardsCpuRight />

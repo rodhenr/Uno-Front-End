@@ -45,6 +45,10 @@ interface BuyCard {
   sessionId: string;
 }
 
+interface Skipping {
+  nextPlayer: string;
+}
+
 export const cardsApi = createApi({
   reducerPath: "cards",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/api/" }),
@@ -77,6 +81,14 @@ export const cardsApi = createApi({
         body: { id, sessionId },
       }),
     }),
+
+    skipTurn: builder.mutation<Skipping, BuyCard>({
+      query: ({ id, sessionId }) => ({
+        url: "/session/skip",
+        method: "POST",
+        body: { id, sessionId },
+      }),
+    }),
   }),
 });
 
@@ -84,5 +96,6 @@ export const {
   useBuyCardMutation,
   useNewGameMutation,
   usePlayMutation,
+  useSkipTurnMutation,
   useStartGameMutation,
 } = cardsApi;

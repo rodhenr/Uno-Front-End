@@ -94,9 +94,14 @@ const cardsSlice = createSlice({
       state.playersCards = playersCards;
       state.winner = winner;
     },
+    skipPlayer: (state, action) => {
+      const { nextPlayer } = action.payload;
+
+      state.nextPlayer = nextPlayer;
+    },
   },
 });
 
-export const { cpuPlay, newSession, playerTurn, startGame } =
+export const { cpuPlay, newSession, playerTurn, skipPlayer, startGame } =
   cardsSlice.actions;
 export default cardsSlice.reducer;
