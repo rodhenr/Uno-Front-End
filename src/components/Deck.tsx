@@ -10,7 +10,6 @@ function Deck() {
   const playerId = useSelector((state: RootState) => state.cards.playerId);
   const sessionId = useSelector((state: RootState) => state.cards.sessionId);
   const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
-  const deckEmpty = useSelector((state: RootState) => state.cards.deckEmpty);
 
   const buyNewCard = async () => {
     if (nextPlayer !== playerId) return;
@@ -31,9 +30,7 @@ function Deck() {
     }
   };
 
-  return deckEmpty ? (
-    <div className={styles.noCards}></div>
-  ) : (
+  return (
     <div
       className={styles.container}
       onClick={() => {

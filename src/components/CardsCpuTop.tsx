@@ -9,8 +9,9 @@ function CardsCpuTop() {
   );
   const selectPlayer = useSelector((state: RootState) => state.cards.cpuTopId);
   const cpuCards = selectCards.filter((i) => i.playerId === selectPlayer);
+  const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
 
-  return (
+  return nextPlayer ? (
     <div className={styles.container}>
       {cpuCards.length > 0 ? (
         Array(cpuCards[0].cards[0])
@@ -26,6 +27,8 @@ function CardsCpuTop() {
         <div className={styles.cards}></div>
       )}
     </div>
+  ) : (
+    <div></div>
   );
 }
 // Necessário enviar o número de cartas p/ usar no SCSS

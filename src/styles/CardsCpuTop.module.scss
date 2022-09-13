@@ -1,13 +1,16 @@
+$borderC: #9d5df7;
 $cards: 7;
 
 .container {
-  bottom: -20px;
+  border-bottom: 3px solid $borderC;
+  border-radius: 10px;
   box-sizing: border-box;
   display: flex;
-  height: 100px;
+  height: 160px;
   padding: 0 0.5rem;
   position: relative;
-  right: 170px;
+
+  width: 400px;
 }
 
 .cards {

@@ -1,14 +1,15 @@
-$cards: 7;
+$borderC: #9d5df7;
+$cards: 12;
 
 .container {
-  bottom: 20px;
-  box-sizing: border-box;
+  border-top: 3px solid $borderC;
+  border-radius: 10px;
   display: flex;
-  height: 150px;
+  height: 160px;
   justify-content: center;
   padding: 0 0.5rem;
   position: relative;
-  right: 170px;
+  width: 400px;
 }
 
 .cards {

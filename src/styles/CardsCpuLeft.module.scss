@@ -1,23 +1,17 @@
+$borderC: #9d5df7;
 $cards: 7;
 
 .container {
-  box-sizing: border-box;
+  border-right: 3px solid $borderC;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 500px;
-  left: 20px;
-  padding: 0.5rem 0;
+  height: 400px;
   position: relative;
-  top: 50px;
-}
-
-.nextPlayer {
-  background-color: green;
+  width: 110px;
 }
 
 .cards {
-  max-height: 100px;
-  min-height: 100px;
   position: absolute;
   width: 100px;
 

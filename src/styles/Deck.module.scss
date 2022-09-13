@@ -8,6 +8,10 @@
   img {
     height: 150px;
   }
+
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 .noCards {

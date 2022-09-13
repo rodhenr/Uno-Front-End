@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cpuPlay, skipPlayer, startGame } from "../app/cardsSlice";
+import { cpuPlay, startGame } from "../app/cardsSlice";
 import { RootState } from "../app/store";
-import {
-  usePlayMutation,
-  useSkipTurnMutation,
-  useStartGameMutation,
-} from "../app/api/apiSlice";
+import { usePlayMutation, useStartGameMutation } from "../app/api/apiSlice";
 import CardsCpuLeft from "./CardsCpuLeft";
 import CardsCpuRight from "./CardsCpuRight";
 import CardsCpuTop from "./CardsCpuTop";
@@ -15,13 +11,11 @@ import CardsPlayed from "./CardsPlayed";
 import Deck from "./Deck";
 import styles from "../styles/App.module.scss";
 
-//SE A PRIMEIRA CARTA FOR DE COR?
-//CARTAS IGUAIS NO BARALHO SÃO RETIRADAS JUNTAS
 //OPÇÃO DE ESCOLHER QUAL COR AO USAR CH
-//CRIAR TELA RECONEXÃO SESSION ANTERIOR
-//CRIAR SAIR
+//CRIAR FORMA DE RECONECTAR NA SESSION ANTERIOR (PASSAR COOKIE NO BACKEND?)
 //PASSAR QUANTIDADE DE CARTAS PARA CSS
-//IDENTIFICAR IMPOSSIBILIADE DE JOGAR NOVAS CARTAS E DECLARAR UM VENCEDOR
+//FAZER AS JOGADAS ACONTECEREM PASSO A PASSO
+//REFATORAR ESSE COMPONENTE
 
 function MainGame() {
   const dispatch = useDispatch();
@@ -32,10 +26,8 @@ function MainGame() {
   const cpuTopId = useSelector((state: RootState) => state.cards.cpuTopId);
   const cpuRightId = useSelector((state: RootState) => state.cards.cpuRightId);
   const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
-  const deckEmpty = useSelector((state: RootState) => state.cards.deckEmpty);
   const [startMutation] = useStartGameMutation();
   const [play] = usePlayMutation();
-  const [skip] = useSkipTurnMutation();
   const [next, setNext] = useState("");
 
   const newGameStart = async (e: React.MouseEvent<HTMLElement>) => {
@@ -86,7 +78,6 @@ function MainGame() {
           }).unwrap();
           dispatch(
             cpuPlay({
-              deckEmpty: data.deckEmpty,
               lastCard: data.lastCard,
               lastColor: data.lastColor,
               nextPlayer: data.nextPlayer,
@@ -103,24 +94,18 @@ function MainGame() {
     cpuTurn();
   }, [nextPlayer]);
 
-  const skipTurn = async () => {
-    if (nextPlayer !== playerId || deckEmpty === false) return;
-
-    try {
-      const data = await skip({ id: playerId, sessionId }).unwrap();
-      dispatch(skipPlayer({ nextPlayer: data.nextPlayer }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return winner === "" ? (
     <div className={styles.container}>
       <div className={styles.maxWidth}>
         <CardsCpuTop />
+        <p>PLAYER 3</p>
       </div>
       <div className={styles.container_middle}>
-        <CardsCpuLeft />
+        <div className={styles.playerTwo}>
+          <CardsCpuLeft />
+          <p>PLAYER 2</p>
+        </div>
+
         <div className={styles.middle_center}>
           <div className={styles.middle_cards}>
             <Deck />
@@ -133,13 +118,16 @@ function MainGame() {
           ) : (
             <div className={styles.middle_options}>
               <p>Turno: {next}</p>
-              <button onClick={() => skipTurn()} disabled={!deckEmpty}>Passar Turno</button>
             </div>
           )}
         </div>
-        <CardsCpuRight />
+        <div className={styles.playerFour}>
+          <p>PLAYER 4</p>
+          <CardsCpuRight />
+        </div>
       </div>
       <div className={styles.maxWidth}>
+        {nextPlayer && <p>{playerId.toUpperCase()}</p>}
         <CardsPlayer />
       </div>
     </div>
@@ -147,13 +135,13 @@ function MainGame() {
     <div className={styles.winner}>
       <p>
         {winner === cpuLeftId ? (
-          <p>O vencedor foi o Esquerdo!</p>
+          <p>O vencedor foi o PLAYER 2!</p>
         ) : winner === cpuRightId ? (
-          <p>O vencedor foi o Direito!</p>
+          <p>O vencedor foi o Player4!</p>
         ) : winner === cpuTopId ? (
-          <p>O vencedor foi o Topo!</p>
+          <p>O vencedor foi o Player3!</p>
         ) : (
-          <p>O vencedor foi o Player!</p>
+          <p>Você venceu!</p>
         )}
       </p>
     </div>

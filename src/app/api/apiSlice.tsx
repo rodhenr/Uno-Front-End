@@ -26,7 +26,6 @@ interface StartGame {
 }
 
 interface Play {
-  deckEmpty: boolean;
   lastCard: string;
   lastColor: string;
   nextCards: ArrayPlayers[];
@@ -43,10 +42,6 @@ interface PlaySettings {
 interface BuyCard {
   id: string;
   sessionId: string;
-}
-
-interface Skipping {
-  nextPlayer: string;
 }
 
 export const cardsApi = createApi({
@@ -81,14 +76,6 @@ export const cardsApi = createApi({
         body: { id, sessionId },
       }),
     }),
-
-    skipTurn: builder.mutation<Skipping, BuyCard>({
-      query: ({ id, sessionId }) => ({
-        url: "/session/skip",
-        method: "POST",
-        body: { id, sessionId },
-      }),
-    }),
   }),
 });
 
@@ -96,6 +83,5 @@ export const {
   useBuyCardMutation,
   useNewGameMutation,
   usePlayMutation,
-  useSkipTurnMutation,
   useStartGameMutation,
 } = cardsApi;

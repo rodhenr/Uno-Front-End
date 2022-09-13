@@ -1,21 +1,19 @@
+$borderC: #9d5df7;
 $cards: 7;
 
 .container {
-  box-sizing: border-box;
+  border-left: 3px solid $borderC;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 500px;
-  right: 120px;
-  padding: 0.5rem 0;
+  height: 400px;
   position: relative;
-  top: 50px;
+  width: 110px;
 }
 
 .cards {
-  max-height: 100px;
-  min-height: 100px;
+  align-self: flex-end;
   position: absolute;
-  width: 100px;
 
   img {
     height: 150px;

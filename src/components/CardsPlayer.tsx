@@ -23,7 +23,6 @@ function CardsPlayer() {
       const data = await play({ card, id: selectPlayer, sessionId }).unwrap();
       dispatch(
         playerTurn({
-          deckEmpty: data.deckEmpty,
           lastCard: data.lastCard,
           lastColor: data.lastColor,
           nextPlayer: data.nextPlayer,
@@ -36,7 +35,7 @@ function CardsPlayer() {
     }
   };
 
-  return (
+  return nextPlayer ? (
     <div className={styles.container}>
       {playerCards.length > 0 ? (
         playerCards[0].cards.map((i) => {
@@ -56,6 +55,8 @@ function CardsPlayer() {
         <div className={styles.cards}></div>
       )}
     </div>
+  ) : (
+    <div></div>
   );
 }
 // Necessário enviar o número de cartas p/ usar no SCSS

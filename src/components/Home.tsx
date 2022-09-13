@@ -18,18 +18,34 @@ function Home() {
   const dispatch = useDispatch();
   const [newGame] = useNewGameMutation();
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+  };
+
+  const submitEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+
+    try {
+      const data = await newGame(name).unwrap();
+
+      if (data.sessionId) {
+        dispatch(newSession({ playerId: name, sessionId: data.sessionId }));
+        navigate("/game");
+      }
+    } catch (err) {
+      const error = err as ErrorType; // Necessário criar uma interface para lidar com o err
+      console.log(err);
+    }
   };
 
   const submit = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     try {
-      const session = await newGame(name).unwrap();
+      const data = await newGame(name).unwrap();
 
-      if (session.sessionId) {
-        dispatch(newSession({ playerId: name, sessionId: session.sessionId }));
+      if (data.sessionId) {
+        dispatch(newSession({ playerId: name, sessionId: data.sessionId }));
         navigate("/game");
       }
     } catch (err) {
@@ -40,17 +56,24 @@ function Home() {
 
   return (
     <div className={styles.container}>
-      <label htmlFor="name">Nome</label>
-      <input
-        id="name"
-        type="text"
-        placeholder="Digite seu nome"
-        value={name}
-        onChange={(e) => handleInput(e)}
-      />
-      <button onClick={(e) => submit(e)} disabled={!name}>
-        Jogar
-      </button>
+      <div className={styles.border}>
+        <div className={styles.inputs}>
+          <div className={styles.single_input}>
+            <label htmlFor="name">Nome:</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Digite seu nome"
+              value={name}
+              onChange={(e) => handleInputName(e)}
+              onKeyDown={(e) => submitEnter(e)}
+            />
+          </div>
+        </div>
+        <button onClick={(e) => submit(e)} disabled={!name}>
+          JOGAR
+        </button>
+      </div>
     </div>
   );
 }
