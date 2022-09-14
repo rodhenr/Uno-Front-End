@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { playerTurn } from "../app/cardsSlice";
+import { choose, playerTurn } from "../app/cardsSlice";
 import { RootState } from "../app/store";
 import { usePlayMutation } from "../app/api/apiSlice";
 import { v4 as uuidv4 } from "uuid";
@@ -18,6 +18,11 @@ function CardsPlayer() {
 
   const playCard = async (card: string) => {
     if (nextPlayer !== selectPlayer) return;
+
+    if (card.charAt(0) === "C" || card.charAt(0) === "F") {
+      dispatch(choose({ chooseCard: card.substring(0, 2), chooseColor: true }));
+      return;
+    }
 
     try {
       const data = await play({ card, id: selectPlayer, sessionId }).unwrap();

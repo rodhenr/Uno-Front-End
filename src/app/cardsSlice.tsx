@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ArrayPlayers {
   playerId: string;
@@ -6,6 +6,8 @@ interface ArrayPlayers {
 }
 
 interface State {
+  chooseColor: boolean;
+  chooseCard: string;
   cpuTopId: string;
   cpuLeftId: string;
   cpuRightId: string;
@@ -19,6 +21,8 @@ interface State {
 }
 
 const initialState: State = {
+  chooseColor: false,
+  chooseCard: "",
   cpuTopId: "",
   cpuLeftId: "",
   cpuRightId: "",
@@ -59,13 +63,8 @@ const cardsSlice = createSlice({
       state.playersCards = playersCards;
     },
     cpuPlay: (state, action) => {
-      const {
-        lastCard,
-        lastColor,
-        nextPlayer,
-        playersCards,
-        winner,
-      } = action.payload;
+      const { lastCard, lastColor, nextPlayer, playersCards, winner } =
+        action.payload;
 
       state.lastCard = lastCard;
       state.lastColor = lastColor;
@@ -74,13 +73,8 @@ const cardsSlice = createSlice({
       state.winner = winner;
     },
     playerTurn: (state, action) => {
-      const {
-        lastCard,
-        lastColor,
-        nextPlayer,
-        playersCards,
-        winner,
-      } = action.payload;
+      const { lastCard, lastColor, nextPlayer, playersCards, winner } =
+        action.payload;
 
       state.lastCard = lastCard;
       state.lastColor = lastColor;
@@ -88,14 +82,16 @@ const cardsSlice = createSlice({
       state.playersCards = playersCards;
       state.winner = winner;
     },
-    skipPlayer: (state, action) => {
-      const { nextPlayer } = action.payload;
-
-      state.nextPlayer = nextPlayer;
+    choose: (
+      state,
+      action: PayloadAction<{ chooseCard: string; chooseColor: boolean }>
+    ) => {
+      state.chooseCard = action.payload.chooseCard;
+      state.chooseColor = action.payload.chooseColor;
     },
   },
 });
 
-export const { cpuPlay, newSession, playerTurn, skipPlayer, startGame } =
+export const { choose, cpuPlay, newSession, playerTurn, startGame } =
   cardsSlice.actions;
 export default cardsSlice.reducer;

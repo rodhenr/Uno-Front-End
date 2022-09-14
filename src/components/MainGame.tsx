@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cpuPlay, startGame } from "../app/cardsSlice";
+import { choose, cpuPlay, playerTurn, startGame } from "../app/cardsSlice";
 import { RootState } from "../app/store";
 import { usePlayMutation, useStartGameMutation } from "../app/api/apiSlice";
 import CardsCpuLeft from "./CardsCpuLeft";
@@ -11,8 +11,6 @@ import CardsPlayed from "./CardsPlayed";
 import Deck from "./Deck";
 import styles from "../styles/App.module.scss";
 
-//OPÇÃO DE ESCOLHER QUAL COR AO USAR CH
-//CRIAR FORMA DE RECONECTAR NA SESSION ANTERIOR (PASSAR COOKIE NO BACKEND?)
 //PASSAR QUANTIDADE DE CARTAS PARA CSS
 //FAZER AS JOGADAS ACONTECEREM PASSO A PASSO
 //REFATORAR ESSE COMPONENTE
@@ -26,6 +24,10 @@ function MainGame() {
   const cpuTopId = useSelector((state: RootState) => state.cards.cpuTopId);
   const cpuRightId = useSelector((state: RootState) => state.cards.cpuRightId);
   const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
+  const choosenColor = useSelector(
+    (state: RootState) => state.cards.chooseColor
+  );
+  const choosenCard = useSelector((state: RootState) => state.cards.chooseCard);
   const [startMutation] = useStartGameMutation();
   const [play] = usePlayMutation();
   const [next, setNext] = useState("");
@@ -94,8 +96,73 @@ function MainGame() {
     cpuTurn();
   }, [nextPlayer]);
 
+  const playerChoose = async (color: string) => {
+    if (nextPlayer !== playerId || choosenCard === "") return;
+
+    const newCard = choosenCard + color;
+
+    try {
+      const data = await play({
+        card: newCard,
+        id: playerId,
+        sessionId,
+      }).unwrap();
+      dispatch(choose({ chooseCard: "", chooseColor: false }));
+      dispatch(
+        playerTurn({
+          lastCard: data.lastCard,
+          lastColor: data.lastColor,
+          nextPlayer: data.nextPlayer,
+          playersCards: data.nextCards,
+          winner: data.winner,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return winner === "" ? (
     <div className={styles.container}>
+      {choosenColor && (
+        <div className={styles.container_choose}>
+          <p>Escolha uma cor</p>
+          <div className={styles.choose}>
+            <div
+              className={styles.choose_green}
+              onClick={() => {
+                playerChoose("G");
+              }}
+            ></div>
+            <div
+              className={styles.choose_yellow}
+              onClick={() => {
+                playerChoose("Y");
+              }}
+            ></div>
+            <div
+              className={styles.choose_red}
+              onClick={() => {
+                playerChoose("R");
+              }}
+            ></div>
+            <div
+              className={styles.choose_blue}
+              onClick={() => {
+                playerChoose("B");
+              }}
+            ></div>
+          </div>
+          <button
+            className={styles.choose_button}
+            onClick={() => {
+              dispatch(choose({ chooseCard: "", chooseColor: false }));
+            }}
+          >
+            CANCELAR
+          </button>
+        </div>
+      )}
       <div className={styles.maxWidth}>
         <CardsCpuTop />
         <p>PLAYER 3</p>

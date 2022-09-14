@@ -1,6 +1,7 @@
 $b1: #8338ec;
 $b2: rgba(170, 128, 228, 0.867);
 $b3: rgb(120, 104, 186);
+$b4: #431386;
 
 .container {
   align-items: center;
@@ -11,7 +12,83 @@ $b3: rgb(120, 104, 186);
   height: 100vh;
   justify-content: space-between;
   overflow: hidden;
+  position: relative;
   width: 100vw;
+}
+
+.container_choose {
+  background: $b4;
+  box-sizing: border-box;
+  border-radius: 12px;
+  display: grid;
+  grid-template-rows: 0.2fr 0.6fr 0.2fr;
+  gap: 0.5rem;
+  height: 220px;
+  left: 50%;
+  padding: 1rem 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+
+  p {
+    color: #fff;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.choose {
+  align-items: center;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0 1rem;
+}
+
+.choose_green,
+.choose_yellow,
+.choose_red,
+.choose_blue {
+  background-color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  height: 100px;
+  width: 100%;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.choose_green {
+  background-color: green;
+}
+
+.choose_yellow {
+  background-color: yellow;
+}
+
+.choose_red {
+  background-color: red;
+}
+
+.choose_blue {
+  background-color: blue;
+}
+
+.choose_button {
+  align-items: center;
+  background-color: #7cb1ac;
+  border: none;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.65);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  gap: 0.4rem;
+  height: 25px;
+  width: 85%;
 }
 
 .container_middle {
@@ -104,7 +181,7 @@ $b3: rgb(120, 104, 186);
 
 .playerTwo {
   display: flex;
-  
+
   p {
     color: $b2;
     display: inline;
@@ -119,7 +196,7 @@ $b3: rgb(120, 104, 186);
 
 .playerFour {
   display: flex;
-  
+
   p {
     color: $b2;
     display: inline;
@@ -129,7 +206,7 @@ $b3: rgb(120, 104, 186);
     padding: 0 0.4rem;
     text-align: center;
     writing-mode: vertical-lr;
-    transform:scale(-1);
+    transform: scale(-1);
   }
 }
 
