@@ -12,7 +12,6 @@ import Deck from "./Deck";
 import styles from "../styles/App.module.scss";
 
 //PASSAR QUANTIDADE DE CARTAS PARA CSS
-//FAZER AS JOGADAS ACONTECEREM PASSO A PASSO
 //REFATORAR ESSE COMPONENTE
 
 function MainGame() {
@@ -56,13 +55,13 @@ function MainGame() {
   useEffect(() => {
     const checkNext = () => {
       if (nextPlayer === cpuLeftId) {
-        setNext("Esquerdo");
+        setNext("Player 2");
       } else if (nextPlayer === cpuTopId) {
-        setNext("Topo");
+        setNext("Player 3");
       } else if (nextPlayer === cpuRightId) {
-        setNext("Direita");
+        setNext("Player 4");
       } else {
-        setNext("Jogador");
+        setNext(playerId);
       }
     };
 
@@ -72,24 +71,26 @@ function MainGame() {
   useEffect(() => {
     const cpuTurn = async () => {
       if (winner === "" && nextPlayer !== playerId) {
-        try {
-          const data = await play({
-            card: ".",
-            id: nextPlayer,
-            sessionId,
-          }).unwrap();
-          dispatch(
-            cpuPlay({
-              lastCard: data.lastCard,
-              lastColor: data.lastColor,
-              nextPlayer: data.nextPlayer,
-              playersCards: data.nextCards,
-              winner: data.winner,
-            })
-          );
-        } catch (err) {
-          console.log(err);
-        }
+        setTimeout(async () => {
+          try {
+            const data = await play({
+              card: ".",
+              id: nextPlayer,
+              sessionId,
+            }).unwrap();
+            dispatch(
+              cpuPlay({
+                lastCard: data.lastCard,
+                lastColor: data.lastColor,
+                nextPlayer: data.nextPlayer,
+                playersCards: data.nextCards,
+                winner: data.winner,
+              })
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        }, 1000);
       }
     };
 
