@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { choose, playerTurn } from "../app/cardsSlice";
 import { RootState } from "../app/store";
@@ -15,6 +16,7 @@ function CardsPlayer() {
   const playerCards = selectCards.filter((i) => i.playerId === selectPlayer);
   const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
   const sessionId = useSelector((state: RootState) => state.cards.sessionId);
+  const playerRef = useRef<HTMLDivElement>(null);
 
   const playCard = async (card: string) => {
     if (nextPlayer !== selectPlayer) return;
@@ -40,13 +42,31 @@ function CardsPlayer() {
     }
   };
 
+  const getClassName = () => {
+    const length =
+      playerRef.current !== null ? playerRef.current.childNodes.length : 0;
+    console.log(length);
+
+    if (length === 0) {
+      return `${styles.cards}`;
+    } else if (length > 0 && length <= 3) {
+      return `${styles.cards} ${styles.maxThree}`;
+    } else if (length > 3 && length <= 6) {
+      return `${styles.cards} ${styles.maxSix}`;
+    } else if (length > 6 && length <= 10) {
+      return `${styles.cards} ${styles.maxTen}`;
+    } else if (length > 10) {
+      return `${styles.cards} ${styles.max}`;
+    }
+  };
+
   return nextPlayer ? (
-    <div className={styles.container}>
+    <div className={styles.container} ref={playerRef}>
       {playerCards.length > 0 ? (
         playerCards[0].cards.map((i) => {
           return (
             <div
-              className={styles.cards}
+              className={getClassName()}
               key={uuidv4()}
               onClick={() => {
                 playCard(i);

@@ -1,5 +1,4 @@
 $borderC: #9d5df7;
-$cards: 7;
 
 .container {
   border-bottom: 3px solid $borderC;
@@ -13,6 +12,42 @@ $cards: 7;
   width: 400px;
 }
 
+.maxThree {
+  @for $i from 1 to 4 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 45px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.maxSix {
+  @for $i from 1 to 7 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 35px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.maxTen {
+  @for $i from 1 to 30 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 27px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.max {
+  @for $i from 1 to 30 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 20px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
 .cards {
   height: 150px;
   max-width: 100px;
@@ -21,34 +56,5 @@ $cards: 7;
 
   img {
     height: 150px;
-  }
-
-  &:nth-child(1) {
-    top: 0;
-    z-index: 1;
-  }
-
-  @for $i from 1 to $cards + 1 {
-    @if ($cards > 15) {
-      &:nth-child(#{$i}) {
-        left: ($i - 1) * (30px - $cards);
-        z-index: $i * 1;
-      }
-    } @else if ($cards > 10) {
-      &:nth-child(#{$i}) {
-        left: ($i - 1) * (35px - $cards);
-        z-index: $i * 1;
-      }
-    } @else if($cards > 5) {
-      &:nth-child(#{$i}) {
-        left: ($i - 1) * (40px - $cards);
-        z-index: $i * 1;
-      }
-    } @else {
-      &:nth-child(#{$i}) {
-        left: ($i - 1) * (45px - $cards);
-        z-index: $i * 1;
-      }
-    }
   }
 }

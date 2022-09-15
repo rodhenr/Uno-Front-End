@@ -11,9 +11,6 @@ import CardsPlayed from "./CardsPlayed";
 import Deck from "./Deck";
 import styles from "../styles/App.module.scss";
 
-//PASSAR QUANTIDADE DE CARTAS PARA CSS
-//REFATORAR ESSE COMPONENTE
-
 function MainGame() {
   const dispatch = useDispatch();
   const winner = useSelector((state: RootState) => state.cards.winner);
