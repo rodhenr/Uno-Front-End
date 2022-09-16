@@ -163,7 +163,9 @@ $b4: #431386;
   gap: 1rem;
   justify-content: center;
 }
-.maxWidth {
+
+.container_top,
+.container_player {
   align-items: center;
   display: flex;
   flex-direction: column;
