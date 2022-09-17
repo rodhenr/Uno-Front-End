@@ -5,16 +5,17 @@ import { cpuPlay } from "../app/cardsSlice";
 import { RootState } from "../app/store";
 import { usePlayMutation } from "../app/api/apiSlice";
 
-import CardsCpuLeft from "./CardsCpuLeft";
-import CardsCpuRight from "./CardsCpuRight";
-import CardsCpuTop from "./CardsCpuTop";
-import CardsPlayer from "./CardsPlayer";
 import ChooseColor from "./ChooseColor";
 import Winner from "./Winner";
 import MiddleCards from "./MiddleCards";
 import MiddleButton from "./MiddleButton";
 
 import styles from "../styles/App.module.scss";
+import Cards from "./Cards";
+
+// Refatorar código
+// Fazer um CATCH correto
+// Arrumar Winner quebrado
 
 function MainGame() {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ function MainGame() {
   const playerId = useSelector((state: RootState) => state.cards.playerId);
   const sessionId = useSelector((state: RootState) => state.cards.sessionId);
   const nextPlayer = useSelector((state: RootState) => state.cards.nextPlayer);
+  const playersCards = useSelector(
+    (state: RootState) => state.cards.playersCards
+  );
   const choosenColor = useSelector(
     (state: RootState) => state.cards.chooseColor
   );
@@ -30,7 +34,7 @@ function MainGame() {
 
   useEffect(() => {
     const cpuTurn = async () => {
-      if (winner === "" && nextPlayer !== playerId) {
+      if (playersCards.length > 0 && winner === "" && nextPlayer !== playerId) {
         setTimeout(async () => {
           try {
             const data = await play({
@@ -60,32 +64,20 @@ function MainGame() {
   return winner === "" ? (
     <div className={styles.container}>
       {choosenColor && <ChooseColor />}
-      <div className={styles.container_top}>
-        <CardsCpuTop />
-        {nextPlayer && <p>PLAYER 3</p>}
-      </div>
+      <Cards position="top" />
 
       <div className={styles.container_middle}>
-        <div className={styles.playerTwo}>
-          <CardsCpuLeft />
-          {nextPlayer && <p>PLAYER 2</p>}
-        </div>
+        <Cards position="left" />
 
         <div className={styles.middle_center}>
           <MiddleCards />
           <MiddleButton />
         </div>
 
-        <div className={styles.playerFour}>
-          {nextPlayer && <p>PLAYER 4</p>}
-          <CardsCpuRight />
-        </div>
+        <Cards position="right" />
       </div>
 
-      <div className={styles.container_player}>
-        {nextPlayer && <p>{playerId.toUpperCase()}</p>}
-        <CardsPlayer />
-      </div>
+      <Cards position="bottom" />
     </div>
   ) : (
     <Winner />

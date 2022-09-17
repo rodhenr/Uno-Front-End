@@ -1,0 +1,245 @@
+$borderC: #9d5df7;
+$b1: #8338ec;
+$b2: rgba(170, 128, 228, 0.867);
+$b3: rgb(120, 104, 186);
+$b4: #431386;
+
+.playerOne,
+.playerThree {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+
+  p {
+    color: $b2;
+    font-family: "Kanit", sans-serif;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0.4rem 0;
+  }
+}
+
+.playerTwo {
+  display: flex;
+
+  p {
+    color: $b2;
+    display: inline;
+    font-family: "Kanit", sans-serif;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0 0.4rem;
+    text-align: center;
+    writing-mode: vertical-lr;
+  }
+}
+
+.playerFour {
+  display: flex;
+
+  p {
+    color: $b2;
+    display: inline;
+    font-family: "Kanit", sans-serif;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0 0.4rem;
+    text-align: center;
+    writing-mode: vertical-lr;
+    transform: scale(-1);
+  }
+}
+
+.container_left {
+  border-right: 3px solid $borderC;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  position: relative;
+  width: 110px;
+}
+
+.container_right {
+  border-left: 3px solid $borderC;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  position: relative;
+  width: 110px;
+}
+
+.container_top {
+  border-bottom: 3px solid $borderC;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  height: 160px;
+  justify-content: center;
+  padding: 0 0.5rem;
+  position: relative;
+  width: 400px;
+}
+
+.container_player {
+  border-top: 3px solid $borderC;
+  border-radius: 10px;
+  display: flex;
+  height: 160px;
+  justify-content: center;
+  padding: 0 0.5rem;
+  position: relative;
+  width: 400px;
+}
+
+.container_left .maxThree,
+.container_right .maxThree {
+  @for $i from 1 to 4 {
+    &:nth-child(#{$i}) {
+      top: ($i - 1) * 40px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_left .maxSix,
+.container_right .maxSix {
+  @for $i from 1 to 7 {
+    &:nth-child(#{$i}) {
+      top: ($i - 1) * 30px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_left .maxTen,
+.container_right .maxTen {
+  @for $i from 1 to 30 {
+    &:nth-child(#{$i}) {
+      top: ($i - 1) * 25px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_left .max,
+.container_right .max {
+  @for $i from 1 to 30 {
+    &:nth-child(#{$i}) {
+      top: ($i - 1) * 20px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_left .cards {
+  position: absolute;
+  width: 100px;
+
+  img {
+    height: 150px;
+  }
+}
+
+.container_right .cards {
+  align-self: flex-end;
+  position: absolute;
+
+  img {
+    height: 150px;
+  }
+}
+
+.container_top .maxThree,
+.container_player .maxThree {
+  @for $i from 1 to 4 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 45px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_top .maxSix,
+.container_player .maxSix {
+  @for $i from 1 to 7 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 35px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_top .maxTen,
+.container_player .maxTen {
+  @for $i from 1 to 30 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 27px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_top .max,
+.container_player .max {
+  @for $i from 1 to 30 {
+    &:nth-child(#{$i}) {
+      left: ($i - 1) * 20px;
+      z-index: ($i) * 1;
+    }
+  }
+}
+
+.container_top .cards {
+  height: 150px;
+  max-width: 100px;
+  min-width: 100px;
+  position: absolute;
+
+  img {
+    height: 150px;
+  }
+}
+
+.container_player .cards {
+  bottom: 0px;
+  cursor: pointer;
+  height: 150px;
+  max-width: 100px;
+  min-width: 100px;
+  position: absolute;
+
+  img {
+    height: 150px;
+  }
+
+  &:hover {
+    animation: 0.5s cardHoverPlayer forwards ease-out;
+    z-index: 100;
+  }
+
+  &:not(hover) {
+    animation: 0.2s cardNotHoverPlayer forwards ease-out;
+  }
+}
+
+@keyframes cardHoverPlayer {
+  0% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: 15px;
+  }
+}
+
+@keyframes cardNotHoverPlayer {
+  0% {
+    bottom: 15px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
