@@ -13,10 +13,6 @@ import MiddleButton from "./MiddleButton";
 import styles from "../styles/App.module.scss";
 import Cards from "./Cards";
 
-// Refatorar código
-// Fazer um CATCH correto
-// Arrumar Winner quebrado
-
 function MainGame() {
   const dispatch = useDispatch();
   const winner = useSelector((state: RootState) => state.cards.winner);

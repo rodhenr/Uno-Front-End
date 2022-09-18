@@ -7,6 +7,13 @@ import Next from "./Next";
 
 import styles from "../styles/App.module.scss";
 
+interface ErrorType {
+  data: {
+    error: string | string[];
+  };
+  originalStatus: number;
+}
+
 function MiddleButton() {
   const dispatch = useDispatch();
 
@@ -33,7 +40,9 @@ function MiddleButton() {
         })
       );
     } catch (err) {
-      console.log(err);
+      const error = err as ErrorType;
+      if (error.originalStatus === 500)
+        alert("Servidor com erro... Tente novamente.");
     }
   };
 

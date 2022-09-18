@@ -6,6 +6,13 @@ import { usePlayMutation } from "../app/api/apiSlice";
 
 import styles from "../styles/App.module.scss";
 
+interface ErrorType {
+  data: {
+    error: string | string[];
+  };
+  originalStatus: number;
+}
+
 function ChooseColor() {
   const dispatch = useDispatch();
   const playerId = useSelector((state: RootState) => state.cards.playerId);
@@ -37,7 +44,9 @@ function ChooseColor() {
         })
       );
     } catch (err) {
-      console.log(err);
+      const error = err as ErrorType;
+      if (error.originalStatus === 500)
+        alert("Servidor com erro... Tente novamente.");
     }
   };
 

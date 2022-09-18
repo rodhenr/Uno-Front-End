@@ -12,6 +12,13 @@ interface Props {
   position: string;
 }
 
+interface ErrorType {
+  data: {
+    error: string | string[];
+  };
+  originalStatus: number;
+}
+
 function Cards({ position }: Props) {
   const dispatch = useDispatch();
   const [play] = usePlayMutation();
@@ -63,11 +70,13 @@ function Cards({ position }: Props) {
         })
       );
     } catch (err) {
-      console.log(err);
+      const error = err as ErrorType;
+      if (error.originalStatus === 400) alert("Cartá Inválida!");
+      if (error.originalStatus === 500)
+        alert("Servidor com erro... Tente novamente.");
     }
   };
 
-  //Arrumar playCard
   const findData = (cardsArray: string[], position: string) => {
     const result =
       cardsArray.length > 0 && position === "bottom" ? (

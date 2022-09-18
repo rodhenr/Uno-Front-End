@@ -9,7 +9,7 @@ interface ErrorType {
   data: {
     error: string | string[];
   };
-  status: number;
+  originalStatus: number;
 }
 
 function Home() {
@@ -33,8 +33,9 @@ function Home() {
         navigate("/game");
       }
     } catch (err) {
-      const error = err as ErrorType; // Necessário criar uma interface para lidar com o err
-      console.log(err);
+      const error = err as ErrorType;
+      if (error.originalStatus === 500)
+        alert("Servidor com erro... Tente novamente.");
     }
   };
 
@@ -49,8 +50,9 @@ function Home() {
         navigate("/game");
       }
     } catch (err) {
-      const error = err as ErrorType; // Necessário criar uma interface para lidar com o err
-      console.log(err);
+      const error = err as ErrorType;
+      if (error.originalStatus === 500)
+        alert("Servidor com erro... Tente novamente.");
     }
   };
 

@@ -4,6 +4,13 @@ import { playerTurn } from "../app/cardsSlice";
 import { useBuyCardMutation } from "../app/api/apiSlice";
 import styles from "../styles/Deck.module.scss";
 
+interface ErrorType {
+  data: {
+    error: string | string[];
+  };
+  originalStatus: number;
+}
+
 function Deck() {
   const dispatch = useDispatch();
   const [buy] = useBuyCardMutation();
@@ -26,7 +33,9 @@ function Deck() {
         })
       );
     } catch (err) {
-      console.log(err);
+      const error = err as ErrorType;
+      if (error.originalStatus === 500)
+        alert("Servidor com erro... Tente novamente.");
     }
   };
 
